@@ -5,6 +5,12 @@ const messages = [
   "Apply for jobs 💼",
   "Invest your new income 🤑",
 ];
+interface ButtonProps {
+  bgColor: string;
+  textColor: string;
+  onClick: () => void;
+  children: React.ReactNode;
+}
 function App(): JSX.Element {
   const [step, setStep] = useState(1);
   const [isOpen, setIsOpen] = useState(true);
@@ -33,18 +39,12 @@ function App(): JSX.Element {
             step {step}: {messages[step - 1]}
           </p>
           <div className="buttons">
-            <button
-              onClick={handlePrevious}
-              style={{ backgroundColor: "#7950f2", color: "#fff" }}
-            >
-              Previous
-            </button>
-            <button
-              onClick={handleNext}
-              style={{ backgroundColor: "#7950f2", color: "#fff" }}
-            >
-              Next
-            </button>
+            <Button bgColor="#7950f2" textColor="#fff" onClick={handlePrevious}>
+              <span>👈</span>Previous
+            </Button>
+            <Button bgColor="#7950f2" textColor="#fff" onClick={handleNext}>
+              Next<span>👉</span>
+            </Button>
           </div>
         </div>
       )}
@@ -52,4 +52,19 @@ function App(): JSX.Element {
   );
 }
 
+function Button({
+  bgColor,
+  textColor,
+  onClick,
+  children,
+}: ButtonProps): JSX.Element {
+  return (
+    <button
+      style={{ backgroundColor: bgColor, color: textColor }}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+}
 export default App;
