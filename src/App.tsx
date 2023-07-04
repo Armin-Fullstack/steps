@@ -11,6 +11,10 @@ interface ButtonProps {
   onClick: () => void;
   children: React.ReactNode;
 }
+interface StepMessageProps {
+  step: number;
+  children: React.ReactNode
+}
 function App(): JSX.Element {
   const [step, setStep] = useState(1);
   const [isOpen, setIsOpen] = useState(true);
@@ -35,9 +39,12 @@ function App(): JSX.Element {
             <div className={`${step >= 2 && "active"}`}>2</div>
             <div className={`${step >= 3 && "active"}`}>3</div>
           </div>
-          <p className="message">
+          {/* <p className="message">
             step {step}: {messages[step - 1]}
-          </p>
+          </p> */}
+          <StepMessage step={step}>
+          {messages[step - 1]}
+          </StepMessage>
           <div className="buttons">
             <Button bgColor="#7950f2" textColor="#fff" onClick={handlePrevious}>
               <span>👈</span>Previous
@@ -50,6 +57,14 @@ function App(): JSX.Element {
       )}
     </>
   );
+}
+
+function StepMessage({step , children}: StepMessageProps) {
+  return(
+    <p className="message">
+    STEP {step}: {children}
+    </p>
+  )
 }
 
 function Button({
